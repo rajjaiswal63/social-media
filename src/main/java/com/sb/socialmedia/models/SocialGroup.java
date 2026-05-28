@@ -1,15 +1,18 @@
 package com.sb.socialmedia.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class SocialGroup {
@@ -18,5 +21,6 @@ public class SocialGroup {
     private long id;
 
     @ManyToMany(mappedBy = "groups")
-    private Set<SocialUser> socialUsers=new HashSet<>();
+    @JsonIgnore
+    private Set<SocialUser> socialUsers = new HashSet<>();
 }

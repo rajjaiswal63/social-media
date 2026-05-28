@@ -1,12 +1,15 @@
 package com.sb.socialmedia.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class SocialProfile {
@@ -15,6 +18,7 @@ public class SocialProfile {
     private long id;
 
     @OneToOne
-    @JoinColumn(name="social_user")
+    @JoinColumn(name = "social_user")
+    @JsonIgnore
     private SocialUser user;
 }
