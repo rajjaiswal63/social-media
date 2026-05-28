@@ -1,13 +1,18 @@
 package com.sb.socialmedia.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class SocialUser {
     @Id
@@ -15,13 +20,17 @@ public class SocialUser {
     private long id;
 
     @OneToOne(mappedBy = "user")
-//    @JoinColumn(name = "social_profile")
     private SocialProfile profile;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts=new ArrayList<>();
 
-    @ManyToMany(mappedBy = "")
-    private Set<Group> group = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_group",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "groups_id")
+    )
+    private Set<SocialGroup> groups = new HashSet<>();
 
 }
